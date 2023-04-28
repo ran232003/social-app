@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 50%;
+  padding: 20px;
+  /* border: solid green 5px; */
+  border-radius: 20px;
+  margin-top: 40px;
+  justify-content: center;
+}
+.input {
+  flex: 0 0 90.333333%;
+  margin-top: 20px !important;
+}
+.name {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 91.333333%;
+  justify-content: space-between;
+}
+.inputName {
+  flex: 0 0 44.333333%;
+}
+.msg {
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.drop {
+  border: dashed 3px gray;
+  margin-top: 20px;
+  width: 89%;
+  text-align: center;
+  cursor: pointer;
+}

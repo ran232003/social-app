@@ -1,0 +1,49 @@
+.homepage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.imageAndDetails {
+  display: flex;
+  /* border: rgb(102, 255, 0) solid 1px; */
+}
+.mainLeft {
+  margin-top: 20px;
+  margin-left: 15px;
+  flex: 0 0 27.333333%;
+  padding: 20px;
+  /* border: green solid 1px; */
+}
+.first {
+  /* border: red solid 1px; */
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.hr {
+}
+.thirdSec {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.mainCenter {
+  flex: 0 0 37.333333%;
+  margin-top: 20px;
+  padding: 20px;
+}
+.mainRight {
+  flex: 0 0 30.333333%;
+  margin-top: 20px;
+  padding: 20px;
+}
+.textField {
+  border-radius: 25%;
+}
+.postIcons {
+}
+@media screen and (max-width: 992px) {
+  .thirdSec {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

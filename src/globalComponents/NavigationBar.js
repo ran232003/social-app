@@ -22,7 +22,9 @@ import "./global.css";
 import { useDispatch, useSelector } from "react-redux";
 import { themeSettings } from "../theme";
 import { colorAction } from "../store/colorSlice";
+import { useNavigate } from "react-router-dom";
 const NavigationBar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const mode = useSelector((state) => {
     return state.mode.mode;
@@ -31,12 +33,13 @@ const NavigationBar = () => {
     return state.auth.user;
   });
   const theme = useTheme();
-  console.log(mode);
   const colors = themeSettings(mode);
-  console.log(user);
   //console.log(theme.palette);
   const handleColor = () => {
     dispatch(colorAction.setMode());
+  };
+  const nav = () => {
+    navigate("/home");
   };
   const [input, setInput] = useState("");
   const Search = styled("div")(() => ({
@@ -83,12 +86,10 @@ const NavigationBar = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  console.log(anchorEl, mobileMoreAnchorEl, "mobileMoreAnchorEl");
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    console.log(event.currentTarget, "event.currentTarget");
     setAnchorEl(event.currentTarget);
   };
 
@@ -178,11 +179,8 @@ const NavigationBar = () => {
       </MenuItem>
     </Menu>
   );
-  const handleClick = () => {
-    console.log("search");
-  };
+  const handleClick = () => {};
   const handleChange = (e) => {
-    console.log("handleChange", e.target.value);
     setInput(e.target.value);
   };
   if (!user) {
@@ -202,6 +200,17 @@ const NavigationBar = () => {
             <Typography variant="h3" noWrap component="div" color="primary">
               Social App
             </Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton>
+                {" "}
+                {mode === "dark" ? (
+                  <DarkModeOutlinedIcon onClick={handleColor} />
+                ) : (
+                  <LightModeOutlinedIcon onClick={handleColor} />
+                )}
+              </IconButton>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
@@ -215,6 +224,7 @@ const NavigationBar = () => {
         >
           <Toolbar>
             <Typography
+              onClick={nav}
               variant="h6"
               noWrap
               component="div"
