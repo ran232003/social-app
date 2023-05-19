@@ -6,7 +6,11 @@ import FriendList from "./components/FriendList";
 import LeftWidget from "./components/LeftWidget";
 import PostList from "./components/PostList";
 import "./HomePage.css";
+import RightWidget from "./components/RightWidget";
 const HomePage = () => {
+  const posts = useSelector((state) => {
+    return state.post.posts;
+  });
   const [input, setInput] = useState("");
   const user = useSelector((state) => {
     return state.auth.user;
@@ -18,15 +22,14 @@ const HomePage = () => {
       <div className="homepage">
         <div className="mainLeft">
           <LeftWidget user={user} />
-          <FriendList user={user} />
         </div>
         <div className="mainCenter">
-          <AddPost user={user} />
-          <PostList />
+          <AddPost user={user} flag="homepage" />
+          <PostList posts={posts} />
         </div>
         <div className="mainRight">
-          <AddPost user={user} />
-          <PostList />
+          <RightWidget />
+          <FriendList user={user} />
         </div>
       </div>
     );

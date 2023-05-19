@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 const UserImage = (props) => {
   const { pic } = props;
+  //console.log(pic);
   return (
     <div className="userImageMain">
       <img

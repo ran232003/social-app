@@ -10,9 +10,15 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { display } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 const LeftWidget = (props) => {
   const theme = useTheme();
   const { user } = props;
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    console.log(user.id, user);
+    navigate(`/profile/${user.id}`);
+  };
   //console.log(user);
   return (
     <div
@@ -28,8 +34,8 @@ const LeftWidget = (props) => {
         }}
       >
         <Box sx={{ display: "flex" }} className="first">
-          <Box className="imageAndDetails">
-            <UserImage pic={user.pic} />
+          <Box className="imageAndDetails" onClick={handleNavigate}>
+            <UserImage pic={user.picturePath} />
             <Box>
               <Typography
                 variant="h3"
@@ -39,7 +45,7 @@ const LeftWidget = (props) => {
                 }}
                 color={theme.palette.neutral.dark}
               >
-                {user.name}
+                {user.firstName}
               </Typography>
               <Typography
                 variant="h6"
@@ -122,7 +128,7 @@ const LeftWidget = (props) => {
             sx={{}}
             color={theme.palette.neutral.dark}
           >
-            124345
+            {user.viewedProfile}
           </Typography>
         </Box>
         <Box
@@ -147,7 +153,7 @@ const LeftWidget = (props) => {
             sx={{}}
             color={theme.palette.neutral.dark}
           >
-            2123
+            {user.impressions}
           </Typography>
         </Box>
         <hr />

@@ -20,7 +20,13 @@ const Auth = () => {
     }
   };
   const handleAuth = (user) => {
-    const local = { token: user.token, userId: user.id };
+    console.log(user);
+    const local = {
+      token: user.token,
+      userId: user.id,
+      email: user.email,
+      firstName: user.firstName,
+    };
     localStorage.setItem("user", JSON.stringify(local));
 
     dispatch(authAction.setUser(user));

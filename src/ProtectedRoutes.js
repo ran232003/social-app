@@ -4,16 +4,14 @@ import { Navigate, Outlet } from "react-router-dom";
 import Auth from "./authPage/Auth";
 
 const ProtectedRoutes = (props) => {
-  const user = useSelector((state) => {
-    return state.auth.user;
+  const isLoggin = useSelector((state) => {
+    return state.auth.isLoggin;
   });
-  const user3 = useSelector((state) => {
-    return state.auth;
-  });
+  console.log(isLoggin);
   // const user2 = props.user;
   // const u = props.u;
 
-  return user ? <Outlet /> : <Navigate to="/auth/login" />;
+  return isLoggin ? <Outlet /> : <Navigate to="/auth/login" />;
 };
 
 export default ProtectedRoutes;

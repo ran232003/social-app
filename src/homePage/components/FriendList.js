@@ -10,11 +10,9 @@ const FriendList = (props) => {
     <Box
       sx={{
         backgroundColor: theme.palette.background.alt,
-        ml: "15px",
         padding: "10px",
-        borderRadius: "10px",
+        borderRadius: "0.75rem",
         mt: "20px",
-        mb: "20px",
       }}
     >
       <Typography

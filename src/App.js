@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Auth from "./authPage/Auth";
 import NavigationBar from "./globalComponents/NavigationBar";
@@ -10,39 +10,40 @@ import ProfilePage from "./profilePage/ProfilePage";
 import { themeSettings } from "./theme";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useEffect, useState } from "react";
-import { getUser } from "./apiCalls";
+import { getAllPosts, getUser } from "./apiCalls";
 import { authAction } from "./store/authSlice";
+import { postAction } from "./store/postsSlice";
 
 function App() {
-  const [u, setU] = useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //getting the color mode
   const mode = useSelector((state) => {
     return state.mode.mode;
   });
-  const userSelect = useSelector((state) => {
-    return state.auth.user;
-  });
+
   //console.log(mode);
   //creating theme with the updated mode, need to put in the ThemeProvider element
   const theme = createTheme(themeSettings(mode));
-  let user;
+
   const userApi = async () => {
     let user = JSON.parse(localStorage.getItem("user"));
+    //console.log(user, "from local");
+    dispatch(authAction.setLogin(true));
     if (user) {
-      const data = await getUser();
+      const data = await getUser(user);
+      const dataPosts = await getAllPosts();
+      console.log(dataPosts.posts, "from local");
       dispatch(authAction.setUser(data.user));
-      user = data.user;
-      setU(user);
+      dispatch(postAction.setPosts(dataPosts.posts));
+      //navigate("/home");
     }
   };
+  //userApi();
   useEffect(() => {
-    // let user = JSON.parse(localStorage.getItem("user"));
-    const f = async () => {
-      await userApi();
-    };
-    f();
-  }, []);
+    userApi();
+  });
+  userApi();
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
@@ -51,13 +52,13 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/auth/login" element={<Auth />} />
-          <Route element={<ProtectedRoutes user={user} u={u} />}>
+          <Route element={<ProtectedRoutes />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
           <Route path="/auth/signup" element={<Auth />} />
 
-          <Route path="/" element={<Navigate to="/auth/login" />} />
+          <Route path="/" element={<Navigate to="/home" />} />
         </Routes>
       </ThemeProvider>
     </div>
